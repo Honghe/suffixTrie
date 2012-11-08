@@ -31,15 +31,22 @@ public class SuffixTrie implements Trie {
 		int i = 0;	//单词的个数
 		try {
 			reader = new BufferedReader(new FileReader(new File(dictName)));
-			String word = reader.readLine();
-			while (word != null) {	//未到文件末尾
-				if (!word.trim().equals("")) {	//非空行
-					i++;
-					word += '$';
-					insert(word);
-				}
-				word = reader.readLine();
+			StringBuffer stringBuffer = new StringBuffer(reader.readLine());	
+			while (stringBuffer.length() > 0) {
+				i++;
+				insert(stringBuffer.toString() + '$');
+				stringBuffer.deleteCharAt(0);
 			}
+			//这是针对给定好递归的序列的
+//			String word = reader.readLine();
+//			while (word != null) {	//未到文件末尾
+//				if (!word.trim().equals("")) {	//非空行
+//					i++;
+//					word += '$';
+//					insert(word);
+//				}
+//				word = reader.readLine();
+//			}
 			System.out.println("total words:" + i);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -54,16 +61,15 @@ public class SuffixTrie implements Trie {
 
 
 	@Override
-	public boolean insert(String word) {
-		if (search(word)) {
-			System.out.println("the word: " + word + " has already bee added into the trie!");
+	public boolean insert(String string) {
+		if (search(string)) {
+			System.out.println("the word: " + string + " has already bee added into the trie!");
 			return false;
 		}else {
-			char[] chars = word.toCharArray();
 			Node currentNode = root;
 			char c;
-			for (int i = 0; i < chars.length; i++) {
-				c = chars[i];
+			for (int i = 0; i < string.length(); i++) {
+				c = string.charAt(i);
 				if (c == '$') {
 					Node leaf = new LeafNode();
 					currentNode.addChild('$', leaf);
@@ -85,13 +91,12 @@ public class SuffixTrie implements Trie {
 	}
 	
 	@Override
-	public boolean search(String word) {
-		word += word + '$';
-		char[] chars = word.toCharArray();
+	public boolean search(String string) {
+		string += string + '$';
 		Node currNode = root;
 		char c;
-		for (int i = 0; i < chars.length; i++) {
-			c = chars[i];
+		for (int i = 0; i < string.length(); i++) {
+			c = string.charAt(i);
 			if (c == '$' && currNode.contains(c)) {
 				return true;
 			}else {
@@ -111,11 +116,10 @@ public class SuffixTrie implements Trie {
 	 * @return
 	 */
 	public boolean searchString(String string) {
-		char[] chars = string.toCharArray();
 		Node currNode = root;
 		char c;
-		for (int i = 0; i < chars.length; i++) {
-			c = chars[i];
+		for (int i = 0; i < string.length(); i++) {
+			c = string.charAt(i);
 			if (!currNode.contains(c)) {
 				return false;
 			}else {
@@ -131,11 +135,10 @@ public class SuffixTrie implements Trie {
 	 * @return
 	 */
 	public int getOccurences(String string) {
-		char[] chars = string.toCharArray();
 		Node currNode = root;
 		char c;
-		for (int i = 0; i < chars.length; i++) {
-			c = chars[i];
+		for (int i = 0; i < string.length(); i++) {
+			c = string.charAt(i);
 			if (!currNode.contains(c)) {
 				return -1;
 			}else {
@@ -144,10 +147,12 @@ public class SuffixTrie implements Trie {
 		}
 		return currNode.getCount();
 	}
+	@Override
 	public void read(String path) {
 		
 	}
 	
+	@Override
 	public void save(String path) {
 		
 	}

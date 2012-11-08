@@ -11,7 +11,7 @@ import java.util.Map;
  */
 public class Node {
 	private char c;
-	private int type;
+	private byte type;
 	private int count; //统计从根到此结点出现次数
 	
 	private Map<String, Node> children;
@@ -37,10 +37,10 @@ public class Node {
 	public void setC(char c) {
 		this.c = c;
 	}
-	public int getType() {
+	public byte getType() {
 		return type;
 	}
-	public void setType(int type) {
+	public void setType(byte type) {
 		this.type = type;
 	}
 	public Map<String, Node> getChildren() {
