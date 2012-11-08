@@ -10,8 +10,8 @@ import java.util.Map;
  * @author honghe
  */
 public class Node {
-	private char c;
-	private byte type;
+	private char c;		//取字符串中的一个字符
+	private byte type;	//节点类型
 	private int count; //统计从根到此结点出现次数
 	
 	private Map<String, Node> children;

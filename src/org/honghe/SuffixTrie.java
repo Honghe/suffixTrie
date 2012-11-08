@@ -12,7 +12,8 @@ import java.io.FileReader;
  * @author honghe
  */
 public class SuffixTrie implements Trie {
-	private Node root;
+	private Node root = null;
+	private int symbolAccount = 0;
 	public SuffixTrie(){
 		root = new BranchNode(' ');
 	}
@@ -28,26 +29,15 @@ public class SuffixTrie implements Trie {
 	@Override
 	public void build(String dictName) {
 		BufferedReader reader = null;
-		int i = 0;	//单词的个数
 		try {
 			reader = new BufferedReader(new FileReader(new File(dictName)));
 			StringBuffer stringBuffer = new StringBuffer(reader.readLine());	
 			while (stringBuffer.length() > 0) {
-				i++;
+				symbolAccount++;
 				insert(stringBuffer.toString() + '$');
 				stringBuffer.deleteCharAt(0);
 			}
-			//这是针对给定好递归的序列的
-//			String word = reader.readLine();
-//			while (word != null) {	//未到文件末尾
-//				if (!word.trim().equals("")) {	//非空行
-//					i++;
-//					word += '$';
-//					insert(word);
-//				}
-//				word = reader.readLine();
-//			}
-			System.out.println("total words:" + i);
+			System.out.println("total words:" + symbolAccount);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
@@ -164,6 +154,20 @@ public class SuffixTrie implements Trie {
 	public boolean delete(String word) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	/**
+	 * @return the symbolAccount
+	 */
+	public int getSymbolAccount() {
+		return symbolAccount;
+	}
+
+	/**
+	 * @param symbolAccount the symbolAccount to set
+	 */
+	public void setSymbolAccount(int symbolAccount) {
+		this.symbolAccount = symbolAccount;
 	}
 
 
