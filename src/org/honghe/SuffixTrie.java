@@ -141,7 +141,7 @@ public class SuffixTrie implements Trie {
 	/**
 	 * 查找SuffrixTrie树中字符串出现的次数
 	 * @param string
-	 * @return
+	 * @return 没有就返回-1
 	 */
 	public int getOccurences(String string) {
 		Node currNode = root;
