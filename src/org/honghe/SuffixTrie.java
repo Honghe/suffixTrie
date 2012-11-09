@@ -29,13 +29,20 @@ public class SuffixTrie implements Trie {
 	@Override
 	public void build(String dictName) {
 		BufferedReader reader = null;
+		StringBuffer stringBuffer = null;
+		String string = null;
 		try {
 			reader = new BufferedReader(new FileReader(new File(dictName)));
-			StringBuffer stringBuffer = new StringBuffer(reader.readLine());	
-			while (stringBuffer.length() > 0) {
-				symbolAccount++;
-				insert(stringBuffer.toString() + '$');
-				stringBuffer.deleteCharAt(0);
+			string = reader.readLine();
+			while (string != null) {
+				stringBuffer = new StringBuffer(string);
+				System.out.println("读" + stringBuffer);
+				while (stringBuffer.length() > 0) {
+					symbolAccount++;
+					insert(stringBuffer.toString() + '$');
+					stringBuffer.deleteCharAt(0);
+				}
+				string = reader.readLine();
 			}
 			System.out.println("total words:" + symbolAccount);
 		} catch (Exception e) {
