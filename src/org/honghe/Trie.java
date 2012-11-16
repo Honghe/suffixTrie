@@ -23,27 +23,27 @@ package org.honghe;
  */
 public interface Trie {
 	/**
-	 * 由词典文件构造Trie树
+	 * 由序列集文件构造Trie树
 	 * @param dictName
 	 */
 	public void build(String dictName);
 	
 	/**
-	 * 在Trie树中查找一个单词
+	 * 在Trie树中查找一个序列
 	 * @param word
 	 * @return
 	 */
 	public boolean search(String word);
 	
 	/**
-	 * 插入一个单词到Trie树中
+	 * 插入一个序列到Trie树中
 	 * @param word
 	 * @return
 	 */
 	public boolean insert(String word);
 	
 	/**
-	 * 从Trie树中删除一个单词
+	 * 从Trie树中删除一个序列
 	 * @param word
 	 * @return
 	 */

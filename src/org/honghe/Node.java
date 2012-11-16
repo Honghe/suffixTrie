@@ -25,7 +25,7 @@ import java.util.Map;
 public class Node {
 	private char c;		//取字符串中的一个字符
 	private byte type;	//节点类型
-	private int count; //统计从根到此结点出现次数
+	private int count; //统计从根到此结点的子序列出现次数
 	
 	private Map<String, Node> children;
 	public Node() {

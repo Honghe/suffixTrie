@@ -34,7 +34,7 @@ public class SuffixTrieTest {
 	 * 测试后缀树
 	 */
 	private void test() {
-		//训练的文件格式是第一行一个训练字符序列
+		//训练的文件格式是每行一个训练字符序列
 		this.path = "./dict/train.txt";
 		this.trie = new SuffixTrie();
 		// 构建后缀树

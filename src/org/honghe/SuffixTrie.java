@@ -25,7 +25,7 @@ import java.io.FileReader;
  */
 public class SuffixTrie implements Trie {
 	private Node root = null;
-	private int symbolAccount = 0;
+	private int symbolAccount = 0;	//统计序列集总共字符数
 	public SuffixTrie(){
 		root = new BranchNode(' ');
 	}
@@ -48,15 +48,14 @@ public class SuffixTrie implements Trie {
 			string = reader.readLine();
 			while (string != null) {
 				stringBuffer = new StringBuffer(string);
-				System.out.println("读" + stringBuffer);
-				while (stringBuffer.length() > 0) {
-					symbolAccount++;
+//				System.out.println("read: " + stringBuffer);
+				while (stringBuffer.length() > 0) {					
 					insert(stringBuffer.toString() + '$');
+					symbolAccount++;
 					stringBuffer.deleteCharAt(0);
 				}
 				string = reader.readLine();
 			}
-			System.out.println("total words:" + symbolAccount);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
@@ -68,22 +67,22 @@ public class SuffixTrie implements Trie {
 		}
 	}
 
-
 	@Override
 	public boolean insert(String string) {
-		if (search(string)) {
-			System.out.println("the word: " + string + " has already bee added into the trie!");
-			return false;
-		}else {
 			Node currentNode = root;
 			char c;
 			for (int i = 0; i < string.length(); i++) {
 				c = string.charAt(i);
-				if (c == '$') {
-					Node leaf = new LeafNode();
-					currentNode.addChild('$', leaf);
-					currentNode.increaseCount();
-				}else {
+				if (c == '$') {	//到序列末尾
+					if (currentNode.contains(c)) {	//如果已有这个序列，则只要结点计数加1
+						currentNode.increaseCount();  
+					}else {
+						Node leaf = new LeafNode();
+						currentNode.addChild('$', leaf);
+						currentNode.increaseCount();
+					}
+					
+				}else {	//未到序列末尾，就增加枝结点
 					if (currentNode.contains(c)) {
 						currentNode.increaseCount();
 						currentNode = currentNode.next(c);
@@ -96,7 +95,6 @@ public class SuffixTrie implements Trie {
 				}
 			}
 			return true;
-		}
 	}
 	
 	@Override
@@ -120,7 +118,7 @@ public class SuffixTrie implements Trie {
 	}
 	
 	/**
-	 * 在SuffixTrie树中查找字符串
+	 * 在SuffixTrie树中查找子序列
 	 * @param string
 	 * @return
 	 */
@@ -139,7 +137,7 @@ public class SuffixTrie implements Trie {
 	}
 	
 	/**
-	 * 查找SuffrixTrie树中字符串出现的次数
+	 * 查找SuffrixTrie树中子序列出现的次数
 	 * @param string
 	 * @return 没有就返回-1
 	 */
@@ -188,6 +186,5 @@ public class SuffixTrie implements Trie {
 	public void setSymbolAccount(int symbolAccount) {
 		this.symbolAccount = symbolAccount;
 	}
-
 
 }
